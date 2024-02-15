@@ -3,7 +3,7 @@ on: [push]
 name: Code Coverage
 
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -22,7 +22,7 @@ jobs:
       - uses: actions-rs/grcov@v0.1
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
-        env:
+        with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: spalmurray-codecov-org/signdemo
 
