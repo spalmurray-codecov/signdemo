@@ -1,0 +1,10 @@
+component_management:
+  individual_components:
+    - component_id: main
+      name: main
+      paths:
+        - src/main.rs
+    - component_id: lib
+      name: lib
+      paths:
+        - src/lib.rs
