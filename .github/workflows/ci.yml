@@ -26,5 +26,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: spalmurray-codecov-org/signdemo
 
-      - run: cat lcov.info
-
