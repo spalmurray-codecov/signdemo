@@ -1,4 +1,4 @@
-use std::{io, path::Path, process::{Command, Output} };
+use std::{path::Path, process::{Command, Output} };
 
 pub fn sign_file(file: &str) -> bool {
     if file.is_empty() {
@@ -11,9 +11,10 @@ pub fn sign_file(file: &str) -> bool {
         return false;
     }
 
-    let result: io::Result<Output> = Command::new("gpg").args(["-ba", file]).output();
+    let result: Option<Output> = Command::new("gpg").args(["-ba", file]).output().ok();
+    dbg!(&result);
 
-    if result.is_err() {
+    if result.is_some() && !result.unwrap().status.success() {
         eprintln!("Something went wrong while signing the file. Check gpg config and try again.");
         return false;
     }
@@ -32,5 +33,10 @@ mod tests {
     #[test]
     fn file_does_not_exist() {
         assert!(!sign_file("a"));
+    }
+
+    #[test]
+    fn gpg_error() {
+        assert!(!sign_file(".gitignore"));
     }
 }
